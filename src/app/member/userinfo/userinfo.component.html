@@ -1,0 +1,34 @@
+<div class="row" *ngIf="isUserLoaded(user)">
+	<div class="container">
+		<!-- <div class="col-md-3 col-md-offset-3">
+			<img src="{{user.image}}" onerror="this.src='../../images/avatar.png'" class="img-circle img-fluid img-responsive"
+			 alt="{{user.name}} avatar" max-width="120" style="height:200px">
+		</div> -->
+		<div class="col-md-6 col-sm-12">
+			<p><b>{{user.name}} </b>
+				<button class="btn btn-sm btn-default" *ngIf=!editing (click)="userprof()">Edit Profile</button>
+				<button class="btn btn-sm btn-default" *ngIf=editing (click)="userprof()">Cancel Edit</button>
+			</p>
+			<ag-user-profile [(user)]="user" *ngIf="editing" (editingmode)="updateEditMode($event)"></ag-user-profile>
+		</div>
+		<div class="col-md-2 col-sm-12">
+			<p>Maxile Points
+				<a href="#" data-toggle="tooltip" data-placement="right" title="Maxile is a valuable measurement invented by All Gifted used within All Gifted systems to measure the difficulty of a Mathematical course and the mathematical ability of a student."><sup><i
+						 class="icon_question"></i></sup></a>
+				: <b>{{user.maxile_level}}</b>
+			</p>
+		</div>
+		<div class="col-md-2 col-sm-12">
+			<p>
+				Kudos
+				<a href="#" data-toggle="tooltip" data-placement="right" title="Game points in the All Gifted system"><sup><i class="icon_question"></i></sup></a>
+				: <b>{{user.game_level}}</b>
+			</p>
+		</div>
+		<div class="col-md-2 col-sm-12">
+			<p>Last Test Date: <b>{{user.last_test_date}}</b></p>
+		</div>
+	</div>
+</div>
+<br />
+<hr>

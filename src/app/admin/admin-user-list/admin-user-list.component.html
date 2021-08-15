@@ -1,0 +1,202 @@
+<section class="screenshots grey-bg" id="adminusers">
+  <div class="container">
+
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+      <!-- SECTION TITLE -->
+      <h2 class="dark-text">All Users</h2>
+
+      <div class="colored-line">
+      </div>
+
+    </div>
+    <div *ngIf="updateStatus" class="alert alert-success alert-dismissible" role="alert">
+      {{ updateStatus }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="resetUpdateStatus()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div *ngIf="status=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+    <div *ngIf="status=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+    <div class="col-md-10 col-md-offset-1">
+      <div>
+        <a [routerLink]="['/admin/']" class="btn btn-default"> Back</a>
+        <!--a [routerLink]="['/admin/users/create']" class="btn btn-success"> New User</a-->
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <div *ngIf="loading" class="mat-on-screen-loader mat-table-spinner-wrapper" align="center">
+          <mat-spinner color="#960000"></mat-spinner>
+        </div>
+        <mat-card id="ToggleGridColumnsContainer" class="result">
+          <mat-card-content>
+            <h5 class="example-h2">Toggle Columns</h5>
+
+            <section class="toggle-columns-section">
+              <mat-slide-toggle [(ngModel)]="ShowColumns.ID" color="primary">
+                ID
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.User" color="primary">
+                User
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Email" color="primary">
+                Email
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.First_Name" color="primary">
+                First Name
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Last_Name" color="primary">
+                Last Name
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Name" color="primary">
+                Name
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Admin" color="primary">
+                Admin
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Maxile_Level" color="primary">
+                Maxile Level
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Game_Level" color="primary">
+                Game Level
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Date_of_Birth" color="primary">
+                Date of Birth
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Last_Test_Date" color="primary">
+                Last Test Date
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Edit" color="primary">
+                Edit
+              </mat-slide-toggle>
+            </section>
+          </mat-card-content>
+        </mat-card>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th [hidden]="!ShowColumns.ID" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByID,
+                'mat-table-th_reversed': reversedByID,
+                'mat-table-th_inactive': !reversedByID && !sortedByID
+              }"
+                  (click)="sortBy('id')">ID</th>
+              <th [hidden]="!ShowColumns.User">User</th>
+              <th [hidden]="!ShowColumns.Email" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByEmail,
+                'mat-table-th_reversed': reversedByEmail,
+                'mat-table-th_inactive': !reversedByEmail && !sortedByEmail
+              }"
+                  (click)="sortBy('email')">
+                Email
+              </th>
+              <th [hidden]="!ShowColumns.First_Name" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByFirst_Name,
+                'mat-table-th_reversed': reversedByFirst_Name,
+                'mat-table-th_inactive': !reversedByEmail && !sortedByFirst_Name
+              }"
+                  (click)="sortBy('firstname')">
+                First Name
+              </th>
+              <th [hidden]="!ShowColumns.Last_Name" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByLast_Name,
+                'mat-table-th_reversed': reversedByLast_Name,
+                'mat-table-th_inactive': !reversedByLast_Name && !sortedByLast_Name
+              }"
+                  (click)="sortBy('lastname')">
+                Last Name
+              </th>
+              <th [hidden]="!ShowColumns.Name" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByName,
+                'mat-table-th_reversed': reversedByName,
+                'mat-table-th_inactive': !reversedByName && !sortedByName
+              }"
+                  (click)="sortBy('name')">
+                Name
+              </th>
+              <th [hidden]="!ShowColumns.Admin" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByisAdmin,
+                'mat-table-th_reversed': reversedByisAdmin,
+                'mat-table-th_inactive': !reversedByisAdmin && !sortedByisAdmin
+              }"
+                  (click)="sortBy('isAdmin')">Admin?</th>
+              <th [hidden]="!ShowColumns.Maxile_Level" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByMaxile_Level,
+                'mat-table-th_reversed': reversedByMaxile_Level,
+                'mat-table-th_inactive': !reversedByMaxile_Level && !sortedByMaxile_Level
+              }"
+                  (click)="sortBy('maxile_level')">
+                Maxile Level
+              </th>
+              <th [hidden]="!ShowColumns.Game_Level" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByGame_Level,
+                'mat-table-th_reversed': reversedByGame_Level,
+                'mat-table-th_inactive': !reversedByGame_Level && !sortedByGame_Level
+              }"
+                  (click)="sortBy('game_level')">
+                Game Level
+              </th>
+              <th [hidden]="!ShowColumns.Date_of_Birth" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByDate_of_Birth,
+                'mat-table-th_reversed': reversedByDate_of_Birth,
+                'mat-table-th_inactive': !reversedByDate_of_Birth && !sortedByDate_of_Birth
+              }"
+                  (click)="sortBy('date_of_birth')">
+                Date of Birth
+              </th>
+              <th [hidden]="!ShowColumns.Last_Test_Date" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByLast_Test_Date,
+                'mat-table-th_reversed': reversedByLast_Test_Date,
+                'mat-table-th_inactive': !reversedByLast_Test_Date && !sortedByLast_Test_Date
+              }"
+                  (click)="sortBy('last_test_date')">
+                Last Test Date
+              </th>
+              <th [hidden]="!ShowColumns.Edit">Action</th>
+            </tr>
+          </thead>
+          <tbody align="left">
+            <tr *ngFor="let user of users">
+              <td [hidden]="!ShowColumns.ID">{{user.id}} </td>
+              <td [hidden]="!ShowColumns.User"><img (error)="handleImageLoadError($event)" src="{{user.image}}" width="75" /></td>
+              <td [hidden]="!ShowColumns.Email">{{user.email}} </td>
+              <td [hidden]="!ShowColumns.First_Name">{{user.firstname}}</td>
+              <td [hidden]="!ShowColumns.Last_Name">{{user.lastname}}</td>
+              <td [hidden]="!ShowColumns.Name">{{user.name}}</td>
+              <td [hidden]="!ShowColumns.Admin">{{user.is_admin?'Yes':'No'}}<br> <button (click)="add_RemoveAdmin(user.id)" [class]="user.is_admin? 'btn btn-danger': 'btn btn-info' ">{{user.is_admin?'Remove Admin' : 'Make Admin'}}</button> </td>
+              <td [hidden]="!ShowColumns.Maxile_Level">{{user.maxile_level | number : 0-0 }}</td>
+              <td [hidden]="!ShowColumns.Game_Level">{{user.game_level}}</td>
+              <td [hidden]="!ShowColumns.Date_of_Birth">{{user.date_of_birth}}</td>
+              <td [hidden]="!ShowColumns.Last_Test_Date">{{user.last_test_date}}</td>
+              <td [hidden]="!ShowColumns.Edit">
+                <div class="btn-group" role="group" aria-label="First group">
+                  <a [routerLink]="['/admin/users/edit', user.id]" class="btn btn-info"><i class="icon_pencil"></i></a>
+                  <a (click)="openDialog(user.id)" class="btn btn-danger"><i class="icon_minus_alt2"></i></a>
+                  <a  (click)="diagnostic(user.id,user)" class="btn btn-success"><i class="fa fa-stethoscope"></i></a>
+                </div>
+                <div style="width: 145px;margin: 4px 0px;">
+                  <a (click)="confirmReset(user.id,user)" class="btn btn-danger" title="This will reset the user, keeping only the game level. When user logs in again, they will do the diagnostic test again.">Reset</a>
+                  <a (click)="genrateReport(user.id)" class="btn btn-info" title="This will generate a report to the administrator.">Report</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

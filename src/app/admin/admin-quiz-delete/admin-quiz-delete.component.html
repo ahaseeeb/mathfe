@@ -1,0 +1,27 @@
+<section class="screenshots grey-bg" id="quizzes">
+
+  <div class="container">
+
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+      <!-- SECTION TITLE -->
+      <a [routerLink]="['/admin/quizzes']" class="btn btn-default"> Back</a>
+      <h3 class="dark-text" *ngIf="!delink_all">{{msg}}</h3>
+
+        <div class="colored-line">
+        </div>
+      <div *ngIf="delink_all">
+        <mat-card class="example-card">
+          <mat-card-content>
+            <h5>{{msg}}</h5>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button (click)="deleteQuizWithAll()" color="primary">Yes</button>
+            <button [routerLink]="['/admin/quizzes']" mat-raised-button>No</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>

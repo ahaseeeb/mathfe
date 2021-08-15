@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>
+  Add Tracks</h1>
+<mat-dialog-content>
+  <div *ngIf="loading" class="mat-table-spinner-wrapper" align="center">
+    <mat-spinner color="#960000"></mat-spinner>
+  </div> 
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    Server error, please try after some time.
+  </div>
+  <label for="skill" class="col-lg-12 control-label">Please select track(s) from dropdown</label>
+  <mat-select class="form-control" name="track_id" id="track_id" #track_id="ngModel" [(ngModel)]="track_ids" multiple>
+    <mat-option *ngFor="let track of tracks" [value]="track.id">{{track.track}}</mat-option>
+  </mat-select>
+  <div *ngIf="track_id.errors?.required && track_id.touched" class="alert alert-danger">
+    Track is required
+  </div>
+  <div *ngIf="tracks.length==0 && !loading">There is no track available for this class.</div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-save mat-raised-button color="primary" (click)="saveTrack()">Save</button>
+</mat-dialog-actions>

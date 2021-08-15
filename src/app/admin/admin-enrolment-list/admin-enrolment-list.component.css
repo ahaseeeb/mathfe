@@ -1,0 +1,14 @@
+.search-area {
+    background: #dadadc;
+    clear: both;
+    padding-bottom: 11px;
+}
+
+.search-area-ctrl {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.bg-light-grey {
+    background-color: #f3f3f3 !important;
+}

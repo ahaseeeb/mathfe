@@ -1,0 +1,147 @@
+<section class="screenshots grey-bg" id="enrolments">
+  <div class="container">
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+      <h2 class="dark-text">Add a New Enrolment</h2>
+      <div class="colored-line">
+      </div>
+    </div>
+    <div *ngIf="loading" class="mat-table-spinner-wrapper" align="center">
+      <mat-spinner color="#960000"></mat-spinner>
+    </div>
+    <div *ngIf="status=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+    <div *ngIf="status=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+    <div class="col-md-10 col-md-offset-1">
+      <div>
+        <a [routerLink]="['/admin/enrolments']" class="btn btn-default"> Back</a>
+      </div>
+      <br />
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+      <div class="well well bs-component">
+        <form novalidate class="form-horizontal" (ngSubmit)="createEnrolment(createEnrolmentForm.value)"
+          #createEnrolmentForm="ngForm">
+          <fieldset>
+
+            <div class="form-group">
+              <label for="user" class="col-lg-2 control-label">User </label>
+              <div class="col-lg-10">
+                <input matInput (input)="onSearchChange($event.target.value)" placeholder="User Name" aria-label="User"
+                  [matAutocomplete]="auto" class="form-control" id="name" name="name" ngModel #name="ngModel" required>
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option (onSelectionChange)="selectedUser=user" *ngFor="let user of filteredUsers"
+                    [value]="user.name">
+                    {{user.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+              <div *ngIf="name.errors?.required && name.dirty" class="alert alert-danger">
+                Name is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="role" class="col-lg-2 control-label">Role</label>
+              <div class="col-lg-10">
+                <!--<input type="text" class="form-control" rows="3" id="role" name="role" ngModel #role="ngModel" required>-->
+                <select class="form-control" #role="ngModel" ngModel id="role" required name="role"
+                  placeholder="House's couse">
+                  <option value="" disabled selected>Select Role</option>
+                  <option *ngFor="let role of roles" [value]="role.role">
+                    {{role.role}}
+                  </option>
+                </select>
+                <div *ngIf="role.errors?.required && role.dirty" class="alert alert-danger">
+                  Role is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="description" class="col-lg-2 control-label">Currency</label>
+              <div class="col-lg-10">
+                <select class="form-control" #currency="ngModel" [(ngModel)]="house.currency" id="currency" required
+                  name="currency" placeholder="House's couse">
+                  <option value="" disabled selected>Select Currency</option>
+                  <option *ngFor="let currency of currencies" [value]="currency">
+                    {{currency}}
+                  </option>
+                </select>
+                <div *ngIf="currency.errors?.required && currency.touched" class="alert alert-danger">
+                  Currency is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="house" class="col-lg-2 control-label">Class Title</label>
+              <div class="col-lg-10">
+                <select (ngModelChange)="onChangeObj($event)" class="form-control" #house="ngModel" ngModel id="house"
+                  required name="house" placeholder="House's couse">
+                  <option value="" disabled selected>Select Class</option>
+                  <option *ngFor="let house of houses" [value]="house.id">
+                    {{house.house}}
+                  </option>
+                </select>
+                <div *ngIf="house.errors?.required && house.touched" class="alert alert-danger">
+                  Class Title is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="price" class="col-lg-2 control-label">Class Price</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" rows="3" id="price" name="price"
+                  [(ngModel)]="selectedHouse.price" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="price" class="col-lg-2 control-label">Amount Paid</label>
+              <div class="col-lg-10">
+                <input type="number" min="0" class="form-control" rows="3" id="amount_paid" name="amount_paid" ngModel="0"
+                  #amount_paid="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="transaction_id" class="col-lg-2 control-label">Transaction ID</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" rows="3" id="transaction_id" name="transaction_id"
+                  ngModel="9999" #transaction_id="ngModel">
+              </div>
+            </div>
+            <div>
+              <div class="form-group col-md-6">
+                <label for="start_date" class="col-lg-4 control-label">Start Date</label>
+                <div class="col-lg-8">
+                  <input type="date" ngModel="start_date" class="form-control" id="start_date" name="start_date"
+                    placeholder="Start Date" />
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="expiry_date" class="col-lg-4 control-label">Expiry Date</label>
+                <div class="col-lg-8">
+                  <input type="date" ngModel="expiry_date" class=" form-control" id="expiry_date" name="expiry_date"
+                    placeholder="Expiry Date" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="places_alloted" class="col-lg-2 control-label">Places</label>
+              <div class="col-lg-10">
+                <input type="number" min="0" step="1" class="form-control" rows="3" id="places_alloted"
+                  name="places_alloted" ngModel="0" #places_alloted="ngModel" required>
+              </div>
+              <div *ngIf="places_alloted.errors?.required && places_alloted.dirty" class="alert alert-danger">
+                Places is required
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <a [routerLink]="['/admin/enrolments']" class="btn btn-default"> Cancel</a>
+                <button type="submit" class="btn btn-primary" [disabled]="createEnrolmentForm.invalid">Create</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

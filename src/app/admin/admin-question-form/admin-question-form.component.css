@@ -1,0 +1,37 @@
+.answer-row{
+	padding-top: 0.5rem !important;
+}
+
+.mat-form-field{
+	width: 92%;
+}
+
+.angular-editor-textarea{
+	background-color: white !important;
+}
+
+.form-group {
+    margin-bottom: 0.2rem;
+}
+
+.row {
+    margin-bottom: 0.2rem;
+}
+
+mat-expansion-panel-header{
+	color:white;
+	background-color: #960000 !important;	
+}
+
+mat-expansion-panel-header:hover{
+	color:white;
+	background-color: #960000 !important;
+}
+
+mat-expansion-indicator{
+	color:white;
+}
+
+.mat-expansion-panel-body{
+	padding: 0!important;
+}

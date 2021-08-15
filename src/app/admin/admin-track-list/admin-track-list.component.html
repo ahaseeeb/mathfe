@@ -1,0 +1,121 @@
+<section class="screenshots grey-bg" id="tracks">
+  <div class="container">
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+      <!-- SECTION TITLE -->
+      <h2 class="dark-text">All Tracks</h2>
+      <div class="colored-line">
+      </div>
+    </div>
+    <div *ngIf="updateStatus" class="alert alert-success alert-dismissible" role="alert">
+      {{ updateStatus }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="resetUpdateStatus()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- /END SECTION HEADER -->
+    <div class="col-md-12">
+      <div>
+        <a [routerLink]="['/admin/']" class="btn btn-default"> Back</a>
+        <a [routerLink]="['/admin/tracks/create']" class="btn btn-success"> New Track</a>
+      </div>
+      <br />
+    </div>
+    <div class="row search-area">
+      <div class="col-md-12 search-area-ctrl">
+        <input (input)="doSearch($event.target.value)" class="form-control" type="text" placeholder="Search by Description | Track Title">
+      </div>
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <mat-card id="ToggleGridColumnsContainer" class="result">
+            <mat-card-content>
+              <h5 class="example-h2">Toggle Columns</h5>
+
+              <section class="toggle-columns-section">
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Track" color="primary">
+                  Track
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Description" color="primary">
+                  Description
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Status" color="primary">
+                  Status
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Field" color="primary">
+                  Field
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Level" color="primary">
+                  Level
+                </mat-slide-toggle>
+
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Classes" color="primary">
+                  Classes
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Action" color="primary">
+                  Action
+                </mat-slide-toggle>
+              </section>
+            </mat-card-content>
+          </mat-card>
+          <table class="table">
+            <thead>
+              <tr>
+                <th [hidden]="!ShowColumns.Track">Track</th>
+                <th [hidden]="!ShowColumns.Description">Description</th>
+                <th [hidden]="!ShowColumns.Status">Status</th>
+                <th [hidden]="!ShowColumns.Field">Field</th>
+                <th [hidden]="!ShowColumns.Level">Level</th>
+                <th [hidden]="!ShowColumns.Classes">Classes</th>
+                <th [hidden]="!ShowColumns.Action">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="loading" class="mat-table-spinner-wrapper">
+                <td colspan="7" align="center" class="mat-table-spinner">
+                  <mat-spinner color="#960000"></mat-spinner>
+                </td>
+              </tr>
+              <tr id="track_{{track.id}}" *ngFor="let track of tracks">
+                <td [hidden]="!ShowColumns.Track" align="left">{{track.track}} </td>
+                <td [hidden]="!ShowColumns.Description" align="left">{{track.description}}</td>
+                <td [hidden]="!ShowColumns.Status">{{track.status.status}}</td>
+                <td [hidden]="!ShowColumns.Field">{{track.field.field}}</td>
+                <td [hidden]="!ShowColumns.Level">{{track.level.level}}</td>
+                <td [hidden]="!ShowColumns.Classes">
+                  <ol *ngFor="let house of track.houses">
+
+                    <li>{{house.house}}</li>
+                  </ol>
+                </td>
+                <td [hidden]="!ShowColumns.Action">
+                  <div class="btn-group" role="group" aria-label="First group">
+                    <a [routerLink]="['/admin/tracks/edit', track.id]" class="btn btn-info"><i class="icon_pencil"></i></a>
+                    <a [routerLink]="['/admin/tracks/delete', track.id]" class="btn btn-danger"><i class="icon_minus_alt2"></i></a>
+                  </div>
+                  <div class="action-box">
+                    <div><b>Manage Skills</b></div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-info btn-sm" (click)="openViewSkills(track.id)" title="View Skills"><i
+                          class="glyphicon glyphicon-eye-open"></i></button>
+                      <button type="button" class="btn btn-danger btn-sm" (click)="deleteAllSkills(track.id)" title="Delete ALL Skills">
+                        <i class="glyphicon glyphicon-remove"></i></button>
+                      <button type="button" class="btn btn-info btn-sm" (click)="getAddSkill(track.id)" title="Add Skills">
+                        <i class="glyphicon glyphicon-education"></i></button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /END CONTAINER -->
+</section>

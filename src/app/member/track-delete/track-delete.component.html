@@ -1,0 +1,33 @@
+<div class="modal fade" id="deleteTrack" role="dialog">
+	<div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" (click)="closeDeleteModal()">&times;</button>
+	      <h4 class="modal-title">Delete Track from Course</h4>
+	    </div>
+	    <div class="modal-body">
+		<div *ngIf="state=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+		<div *ngIf="state=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<form novalidate class="form-horizontal" (ngSubmit)="deleteTrack(track)" #editTrackForm="ngForm">
+				  <fieldset>
+				  	<div class="modal-body">
+						<label>Are you sure you want to delete {{track.track}} from this class?</label>				  		
+				  	</div>
+				    <div class="modal-footer">
+					    <div class="form-group">
+					      <div class="col-lg-6 col-lg-offset4">
+					        <button type="submit" class="btn btn-primary" [disabled]="deleteTrack.invalid" *ngIf="state!='success'">Yes</button>
+					        <button type="submit" class="btn btn-default" data-dismiss="modal" *ngIf="state=='success'" (click)="closeDeleteModal()">Cancel</button>
+					      </div>
+					    </div>
+			        </div>
+				   </fieldset>
+				</form>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</div>

@@ -1,0 +1,126 @@
+<section class="screenshots grey-bg" id="courses">
+
+<div class="container">
+
+  <!-- SECTION HEADER -->
+  <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+    <!-- SECTION TITLE -->
+    <h2 class="dark-text">Admin Dashboard</h2>
+
+    <div class="colored-line">
+    </div>
+
+  </div>
+  <div class="container">
+    <div class="row banner">
+      <div class="col-md-12">
+        <div class="list-group" align="left">
+          <div class="list-group-item" style="background:#dddddd;">
+            <div class="row-action-primary">
+              <h3 class="list-group-item-heading"><span class="glyphicon glyphicon-user"></span> Enrolment Management</h3>
+            </div>
+            <div class="row-content">
+              <a [routerLink]="['/admin/users']" class="btn btn-default btn-raised">
+                <span class="glyphicon glyphicon-user"></span>
+                <h4>Manage Users</h4>
+              </a>
+              <!--a [routerLink]="['/admin/users/create']" class="btn btn-primary btn-raised">New User</a-->
+              <a [routerLink]="['/admin/enrolments']" class="btn btn-default btn-raised">
+                <span class="glyphicon glyphicon-blackboard"></span>
+                <h4>Manage Enrolments</h4>
+                <a [routerLink]="['/admin/enrolments/create']" class="btn btn-primary btn-raised">New Enrolment</a>
+              </a>
+              <a [routerLink]="['/admin/houses']" class="btn btn-default btn-raised">
+                <span class="glyphicon glyphicon-book"></span>
+                <h4>Manage Classes</h4>
+                <a [routerLink]="['/admin/houses/create']" class="btn btn-primary btn-raised">New Class</a>
+              </a>
+            </div>
+          </div>
+          <div class="list-group-separator"></div>
+            <div class="list-group-item" style="background:#bbbbbb;">
+              <div class="row-action-primary">
+               <h3 class="list-group-item-heading"><span class="glyphicon glyphicon-education"></span> Curriculum Management</h3>
+              </div>
+              <div class="row-content">
+                <a [routerLink]="['/admin/courses']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-book"></span>
+                  <h4>Manage Courses</h4>
+                  <a [routerLink]="['/admin/courses/create']" class="btn btn-primary btn-raised">New Course</a>
+                </a>
+                <a [routerLink]="['/admin/tracks']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-road"></span>
+                  <h4>Manage Tracks</h4>
+                  <a [routerLink]="['/admin/tracks/create']" class="btn btn-primary btn-raised">New Track</a>
+                </a>
+                <a [routerLink]="['/admin/skills']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-education"></span>
+                  <h4>Manage Skills</h4>
+                  <a [routerLink]="['/admin/skills/create']" class="btn btn-primary btn-raised">New Skill</a>
+                </a>
+                <a [routerLink]="['/admin/questions']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-question-sign"></span>
+                  <h4>Manage Questions</h4>
+                  <a [routerLink]="['/admin/questions/create']" class="btn btn-primary btn-raised">New Question</a>
+                </a>
+                <a [routerLink]="['/admin/questions']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-question-sign"></span>
+                  <h4>Manage Quizzes</h4>
+                  <a [routerLink]="['/admin/quizzes']" class="btn btn-primary btn-raised">New Quiz</a>
+                </a>
+              </div>
+            </div>
+          <div class="list-group-separator"></div>
+            <div class="list-group-item" style="background:#dddddd;">
+              <div class="row-action-primary">
+               <h3 class="list-group-item-heading"><span class="glyphicon glyphicon-wrench"></span> Site Configuration</h3>
+              </div>
+              <div class="row-content">
+                <a [routerLink]="['/admin/difficulties']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-scale"></span>
+                  <h4>Difficulty</h4>
+                  <a [routerLink]="['/admin/difficulties/create']" class="btn btn-primary btn-raised">New Difficulty</a>
+                </a>
+                <a [routerLink]="['/admin/fields']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-tree-deciduous"></span>
+                  <h4>Field</h4>
+                  <a [routerLink]="['/admin/fields/create']" class="btn btn-primary btn-raised">New Field</a>
+                </a>
+                <a [routerLink]="['/admin/types']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-pawn"></span>
+                  <h4>Type</h4>
+                  <a [routerLink]="['/admin/types/create']" class="btn btn-primary btn-raised">New Type</a>
+                </a>
+                <a [routerLink]="['/admin/levels']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-flash"></span>
+                  <h4>Level</h4>
+                  <a [routerLink]="['/admin/levels/create']" class="btn btn-primary btn-raised">New Level</a>
+                </a>
+                <a [routerLink]="['/admin/permissions']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-ban-circle"></span>
+                  <h4>Permission</h4>
+                  <a [routerLink]="['/admin/permissions/create']" class="btn btn-primary btn-raised">New Permission</a>
+                </a>
+                <a [routerLink]="['/admin/roles']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-queen"></span>
+                  <h4>Role</h4>
+                  <a [routerLink]="['/admin/roles/create']" class="btn btn-primary btn-raised">New Role</a>
+                </a>
+                <a [routerLink]="['/admin/units']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                  <h4>Units</h4>
+                  <a [routerLink]="['/admin/units/create']" class="btn btn-primary btn-raised">New Unit</a>
+                </a>
+                <a [routerLink]="['/admin/units']" class="btn btn-default btn-raised">
+                  <span class="glyphicon glyphicon-random"></span>
+                  <h4>Progress Algorithm</h4>
+                </a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

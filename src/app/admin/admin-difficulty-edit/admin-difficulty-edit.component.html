@@ -1,0 +1,68 @@
+<section class="screenshots grey-bg" id="difficulties">
+
+  <div class="container">
+
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+      <h2 class="dark-text">Updating Difficulty: {{difficulty.difficulty}}</h2>
+
+      <div class="colored-line">
+      </div>
+
+    </div>
+    <div *ngIf="status=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+    <div *ngIf="status=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+    <div class="col-md-10 col-md-offset-1">
+
+      <div>
+        <a [routerLink]="['/admin/difficulties']" class="btn btn-default"> Back</a>
+      </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+      <div class="well well bs-component">
+        <form novalidate class="form-horizontal" (ngSubmit)="updateDifficulty(difficulty)" #editDifficultyForm="ngForm">
+          <fieldset>
+            <div class="form-group">
+              <label for="difficulty" class="col-lg-2 control-label">Difficulty</label>
+              <div class="col-lg-10">
+                <input type="number" class="form-control" id="difficulty_name" name="difficulty_name" placeholder="Difficulty Name"
+                  [(ngModel)]="difficulty.difficulty" #difficulty_name="ngModel" required>
+                <div *ngIf="difficulty_name.errors?.required && difficulty_name.dirty" class="alert alert-danger">
+                  Difficulty is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-lg-2 control-label">Description</label>
+              <div class="col-lg-10">
+                <textarea class="form-control" rows="3" id="description" name="description" [(ngModel)]="difficulty.description"
+                  #description="ngModel" required></textarea>
+                <div *ngIf="description.errors?.required && description.dirty" class="alert alert-danger">
+                  Description is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="short_description" class="col-lg-2 control-label">Short Description</label>
+              <div class="col-lg-10">
+                <textarea class="form-control" rows="3" id="short_description" name="short_description" placeholder="Short Description of the difficulty"
+                [(ngModel)]="difficulty.short_description" #short_description="ngModel" required></textarea>
+                <div *ngIf="short_description.errors?.required && short_description.touched" class="alert alert-danger">
+                  Short Description is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <a [routerLink]="['/admin/difficulties']" class="btn btn-default"> Cancel</a>
+                <button type="submit" class="btn btn-primary" [disabled]="editDifficultyForm.invalid">Update</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

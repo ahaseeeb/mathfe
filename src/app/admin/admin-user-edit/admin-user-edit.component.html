@@ -1,0 +1,107 @@
+<section class="screenshots grey-bg" id="users">
+
+  <div class="container">
+
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+      <!-- SECTION TITLE -->
+      <h2 class="dark-text">Updating User : {{user.name}}</h2>
+
+      <div class="colored-line">
+      </div>
+
+    </div>
+    <div *ngIf="status=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+    <div *ngIf="status=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+    <div class="col-md-10 col-md-offset-1">
+
+      <div>
+        <a [routerLink]="['/admin/users']" class="btn btn-default"> Back</a>
+      </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+      <div class="well well bs-component">
+        <form novalidate class="form-horizontal" (ngSubmit)="updateUser(user)" #editUserForm="ngForm">
+          <fieldset>
+            <!-- <div class="form-group">
+              <label for="image" class="col-lg-2 control-label">Image</label>
+              <div class="col-lg-10">
+                <input type="file" accept="image/*" (change)="handelFileInput($event.target.files)" /> -->
+            <!-- <input type="text" class="form-control" id="image" name="image" placeholder="Image of the user" [(ngModel)]="user.image" #image="ngModel" required minlength="3">
+            <div *ngIf="image.errors?.required && image.dirty" class="alert alert-danger">
+              Image is required
+            </div>
+            <div *ngIf="image.errors?.minlength && image.touched" class="alert alert-danger">
+              Minimum of 3 characters
+            </div> -->
+            <!-- </div>
+            </div> -->
+            <div class="form-group">
+              <label for="user" class="col-lg-2 control-label">User </label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="User Name"
+                  [(ngModel)]="user.name" #name="ngModel" required>
+                <div *ngIf="name.errors?.required && name.dirty" class="alert alert-danger">
+                  Name is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-lg-2 control-label">Email</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" rows="3" id="email" name="email" [(ngModel)]="user.email"
+                  #email="ngModel" required></div>
+              <div *ngIf="email.errors?.required && email.dirty" class="alert alert-danger">
+                Email is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="firstname" class="col-lg-2 control-label">First Name</label>
+              <div class="col-lg-4">
+                <input type="text" min="0" max="5000" step="100" class="form-control" id="firstname" name="firstname"
+                  placeholder="First Name" [(ngModel)]="user.firstname" #firstname="ngModel" required>
+                <div *ngIf="firstname.errors?.required && firstname.dirty" class="alert alert-danger">
+                  First Name is required
+                </div>
+              </div>
+              <label for="lastname" class="col-lg-2 control-label">Last Name</label>
+              <div class="col-lg-4">
+                <input type="text" min="100" max="5000" step="100" class="form-control" id="lastname" name="lastname"
+                  placeholder="Last Name" [(ngModel)]="user.lastname" #lastname="ngModel" required>
+                <div *ngIf="lastname.errors?.required && lastname.dirty" class="alert alert-danger">
+                  Last Name is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="maxile_level" class="col-lg-2 control-label">Maxile Level</label>
+              <div class="col-lg-4">
+                <input type="number" min="0" step="100" class="form-control" id="maxile_level" name="maxile_level"
+                  placeholder="Maxile Level" [(ngModel)]="user.maxile_level" #maxile_level="ngModel" required>
+                <div *ngIf="maxile_level.errors?.required && maxile_level.dirty" class="alert alert-danger">
+                  Maxile Level is required
+                </div>
+              </div>
+              <label for="game_level" class="col-lg-2 control-label">Game Level (Kudos)</label>
+              <div class="col-lg-4">
+                <input type="number" min="0" step="100" class="form-control" id="game_level" name="game_level"
+                  placeholder="New Game Level" [(ngModel)]="user.game_level" #game_level="ngModel" required>
+                <div *ngIf="game_level.errors?.required && game_level.dirty" class="alert alert-danger">
+                  Game Level cannot be null
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <a [routerLink]="['/admin/users']" class="btn btn-default"> Cancel</a>
+                <button type="submit" class="btn btn-primary" [disabled]="editUserForm.invalid">Update</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

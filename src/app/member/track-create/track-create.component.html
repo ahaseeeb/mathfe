@@ -1,0 +1,60 @@
+<div *ngIf="status=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+<div *ngIf="status=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+
+<div class="col-md-12">
+	<div class="well well bs-component">
+	  <form novalidate class="form-horizontal" (ngSubmit)="addTrack(addTrackForm.value)" #addTrackForm="ngForm">
+	  	<h3>Adding a new track </h3>
+	    <fieldset>
+	      <input type="hidden" name="house_id" [(ngModel)]="house.id" #house_id="ngModel">
+	      <div class="form-group">
+	        <div class="col-lg-12">
+	          <input type="text" class="form-control" id="trackname" name="track" placeholder="Type or Select Track Title" [(ngModel)]="track.track" #track="ngModel" required list="tracks">
+	          	<datalist id="tracks" align="left">
+	 			    <option *ngFor="let track of my_tracks">{{track.track}}</option>
+	 			    <option *ngIf ="(my_tracks)?.length>0">-----------------</option>
+	 			    <option *ngFor="let track of public_tracks">{{track.track}}</option>
+	          	</datalist>
+	          <div *ngIf="track.errors?.required && track.touched" class="alert alert-danger">
+	            Track Title is required
+	          </div>
+	        </div>
+	      </div>
+	      <div class='row'>
+		        <div class="form-group col-md-4">
+		          <div class="col-lg-12">
+				<select class="form-control" id="level_id" required ngModel #level_id="ngModel" name="level_id" placeholder="Track's level">
+				    <option value="" disabled selected>Select Level</option>
+				    <option *ngFor="let level of levels" [value]="level.id">
+				        {{level.description}} ~ Level: {{level.level}} </option>
+				</select>
+		          </div>
+		        </div>
+		        <div class="form-group col-md-4">
+		          <div class="col-lg-12">
+				<select class="form-control" id="status_id" required ngModel #status_id="ngModel" name="status_id" placeholder="Track's status">
+				    <option value="" disabled selected>Select Status</option>
+	 			    <option *ngFor="let status of statuses" [value]="status.id">
+				        {{status.status}} - {{status.description}} </option>
+				</select>
+		          </div>
+		        </div>
+		        <div class="form-group col-md-4">
+		          <div class="col-lg-12">
+				<select class="form-control" id="field_id" required ngModel #field_id="ngModel" name="field_id" placeholder="Track's field">
+					    <option value="" disabled selected>Select Field</option>
+				    <option *ngFor="let field of fields" [value]="field.id">
+				        {{field.field}} ~ {{field.description}} </option>
+				</select>
+		          </div>
+		        </div>
+	     </div>
+	      <div class="form-group">
+	        <div class="col-lg-4 col-lg-offset-4">
+	          <button type="submit" class="btn btn-primary" [disabled]="addTrackForm.invalid">Add Track</button>
+	        </div>
+	      </div>
+	    </fieldset>
+	  </form>
+	</div>
+</div>

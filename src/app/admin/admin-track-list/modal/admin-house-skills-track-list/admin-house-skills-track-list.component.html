@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>
+  <p *ngIf="message" class="alert alert-success alert-dismissible" role="alert">
+    {{ message }}
+  </p>
+</h2>
+<mat-dialog-content>
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="mat-table-th">Skill</th>
+            <th class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                  'mat-table-th_active': sortedByDescription,
+                  'mat-table-th_reversed': reversedByDescription,
+                  'mat-table-th_inactive': !reversedByDescription && !sortedByDescription
+                }"
+                (click)="sortBy('description')">
+              Description
+            </th>
+            <th class="mat-table-th">Status</th>
+            <th class="mat-table-th">Check</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="skills.length==0 && !loading">
+            <td colspan="7" align="center">
+              <p>No data exist!!</p>
+            </td>
+          </tr>
+          <tr *ngIf="loading" class="mat-table-spinner-wrapper">
+            <td colspan="7" align="center" class="mat-table-spinner">
+              <mat-spinner color="#960000"></mat-spinner>
+            </td>
+          </tr>
+          <ng-container *ngFor="let skill of skills">
+            <tr>
+              <td> 
+                <div *ngFor="let v of skill.videos">
+                  <img *ngIf="!v.play" style="height:142px;" (click)="v.play=true" src="/assets/images/play_video.png" />
+                  <div *ngIf="v.play">
+                    <video width="250" controls autoplay>
+                      <source [src]="v.link" type="video/mp4" />
+                      Your browser does not support HTML5 video.
+                    </video>
+                  </div>
+                </div>
+                <div *ngIf="skill.videos.length==0">
+                  <span style="color:#2a6496">No video for this skill</span>
+                </div>
+                <!--<img *ngIf="!skill.play" style="height:142px;" (click)="skill.play=true" src="/assets/images/play_video.png" />
+  <video *ngIf="skill.play" width="250" controls autoplay>
+    <source [src]="videoUrl(skill)" type="video/mp4" />
+    Your browser does not support HTML5 video.
+  </video>-->
+              </td>
+              <td>{{ skill.skill }}</td>
+              <td align="left">
+                <p>{{ skill.description }}</p>
+              </td>
+              <td>{{skill.status}}</td>
+              <td>{{skill.check==1?'TRUE' : 'FALSE' }}</td>
+              <td>
+                <div class="btn-group" role="group" aria-label="First group">
+                  <button type="button" class="btn btn-primary" (click)="deleteSkill(skill.id)">Unlink Skill</button>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

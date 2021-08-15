@@ -1,0 +1,25 @@
+
+<div class="container" *ngIf =" isDataLoaded((houses | async))">
+	
+	<!-- SECTION HEADER -->
+	<div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+		<!-- SECTION TITLE -->
+		<h2 class="dark-text">Class Management</h2>
+		
+		<div class="colored-line">
+		</div><br />
+		<div class="row">
+			<div class="container">
+			      <div class="row">
+			           <ag-teach *ngFor="let house of houses | async" [house]="house" (click)="onSelect(house)"></ag-teach>
+			      </div>
+			</div>
+		</div>
+		
+	</div>
+	<!-- /END SECTION HEADER -->	
+</div>
+<!-- /END CONTAINER -->
+<div class="container" *ngIf ="isNoDataExists((houses | async))">
+	<p>You are not teaching any class.</p>
+</div>

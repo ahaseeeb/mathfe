@@ -1,0 +1,76 @@
+<div *ngIf="status=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+<div *ngIf="status=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="well well bs-component">
+    <form novalidate class="form-horizontal" (ngSubmit)="updateUser(user)" #editUserForm="ngForm">
+      <fieldset>
+        <div class="form-group">
+          <label for="email" class="col-lg-3 control-label">Email</label>
+          <div class="col-lg-9">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Your Email" [(ngModel)]="user.email"
+              #user_email="ngModel" disabled>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="image" class="col-lg-3 control-label">Image</label>
+          <div class="col-lg-9">
+            <input type="file" accept="image/*" (change)="handelFileInput($event.target.files)" />
+            
+          </div>
+        </div> -->
+        <div class="form-group">
+          <label for="name" class="col-lg-3 control-label">Name</label>
+          <div class="col-lg-9">
+            <input type="text" class="form-control" id="user_name" name="user_name" placeholder="User Name" [(ngModel)]="user.name"
+              #user_name="ngModel" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="firstname" class="col-lg-3 control-label">First Name</label>
+          <div class="col-lg-9">
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
+              [(ngModel)]="user.firstname" #user_firstname="ngModel" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastname" class="col-lg-3 control-label">Last Name</label>
+          <div class="col-lg-9">
+            <input type="text" class="form-control" id="user_lastname" name="user_lastname" placeholder="User LastName"
+              [(ngModel)]="user.lastname" #user_lastname="ngModel" disabled>
+            <div *ngIf="user_lastname.errors?.required && user_lastname.dirty" class="alert alert-danger">
+              User Last Name is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="contact" class="col-lg-3 control-label">Contact</label>
+          <div class="col-lg-9">
+            <input type="text" class="form-control" id="user_contact" name="user_contact" placeholder="User Contact Number"
+              [(ngModel)]="user.contact" #user_contact="ngModel" required>
+            <div *ngIf="user_contact.errors?.required && user_contact.dirty" class="alert alert-danger">
+              Contact Number is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="date_of_birth" class="col-lg-3 control-label">Date of Birth</label>
+          <div class="col-lg-9">
+            <!--<input type="text" class="form-control" id="user_date_of_birth" name="user_date_of_birth" placeholder="YYYY-MM-DD" [(ngModel)]="user.date_of_birth" #user_date_of_birth="ngModel" required>-->
+            <input type="date" class="form-control" id="user_date_of_birth" name="user_date_of_birth" placeholder="YYYY-MM-DD"
+              [ngModel]="user.date_of_birth | date:'yyyy-MM-dd'" (ngModelChange)="user.date_of_birth = $event"
+              #user_date_of_birth="ngModel" required>
+            <div *ngIf="user_date_of_birth.errors?.required && user_date_of_birth.dirty" class="alert alert-danger">
+              User Birth Date is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button type="submit" class="btn btn-primary" [disabled]="editUserForm.invalid">Update</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

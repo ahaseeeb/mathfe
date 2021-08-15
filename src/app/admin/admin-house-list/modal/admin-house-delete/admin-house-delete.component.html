@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>
+  Delete Class </h2>
+<div>
+  <mat-dialog-content>
+    <p *ngIf="!error">
+      Are you sure?
+    </p>
+    <div *ngIf="loading" class="mat-table-spinner-wrapper" align="center">
+      <mat-spinner color="#960000"></mat-spinner>
+    </div>
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      {{msg}}
+    </div>
+  </mat-dialog-content>
+</div>
+<div>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions>
+    <button mat-raised-button *ngIf="!error" color="primary" (click)="DeleteHouse()">Yes</button>
+    <button mat-raised-button [mat-dialog-close]="false">{{error?"Close":"No"}}</button>
+  </mat-dialog-actions>
+</div>

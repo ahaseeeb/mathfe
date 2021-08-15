@@ -1,0 +1,52 @@
+<div *ngIf="selectedCourse">
+	<ag-course-detail [selectedCourse]="selectedCourse"></ag-course-detail>
+</div>
+<div class="container">
+	<div class="row">
+		<!-- Masonry grid Container -->
+		<ng-masonry-grid [masonryOptions]="{ transitionDuration: '0.8s', gutter: 0 }" [useAnimation]="true" [useImagesLoaded]="true"
+		 [scrollAnimationOptions]="{ animationEffect: 'effect-4', minDuration : 0.4, maxDuration : 0.7 }">
+			<!-- Masonry Grid Item -->
+			<ng-masonry-grid-item id="{{'masonry-item-'+i}}" class="col-md-3 col-sm-4 col-xs-6" *ngFor="let course of courses | async; let i = index;" (click)="onSelect(course)">
+				<ag-course [course]="course" (click)="onSelect(course)"></ag-course>
+			</ng-masonry-grid-item>
+		</ng-masonry-grid>
+	</div>
+</div>
+<!-- if got time, do this carousel thingy
+		<div id="screenshots" class="owl-carousel owl-theme">
+			
+			<div class="shot">
+				<a href="images/screenshots/1.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/1.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/3.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/3.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/2.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/2.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/4.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/4.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/1.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/1.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/3.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/3.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/2.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/2.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/4.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/4.jpg" alt="Screenshot"></a>
+			</div>
+			
+		</div-->
+<!-- /END SCREENSHOTS -->

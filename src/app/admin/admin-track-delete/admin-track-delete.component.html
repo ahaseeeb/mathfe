@@ -1,0 +1,32 @@
+<section class="screenshots grey-bg" id="tracks">
+
+  <div class="container">
+
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+      <!-- SECTION TITLE -->
+      <a [routerLink]="['/admin/tracks']" class="btn btn-default"> Back</a>
+      <h3 class="dark-text">{{msg}} </h3>
+
+      <div class="colored-line">
+      </div>
+      <div *ngIf="skillsExist">
+        <mat-card class="example-card">
+          <mat-card-content>
+            <h5>{{skillsExistMsg}}</h5>
+            <ul>
+              <li *ngFor="let skill of skills">
+                {{skill.skill}}
+              </li>
+            </ul>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button (click)="deleteTracksWithSkills()" color="primary">Yes</button>
+            <button [routerLink]="['/admin/tracks']" mat-raised-button>No</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>

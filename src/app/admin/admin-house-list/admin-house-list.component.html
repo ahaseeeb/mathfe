@@ -1,0 +1,135 @@
+<section class="screenshots grey-bg" id="houses">
+  <div class="container">
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+      <!-- SECTION TITLE -->
+      <h2 class="dark-text">All Classes</h2>
+      <div class="colored-line">
+      </div>
+    </div>
+    <!-- /END SECTION HEADER -->
+    <div *ngIf="updateStatus" class="alert alert-success alert-dismissible" role="alert">
+      {{ updateStatus }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="resetUpdateStatus()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="col-md-12">
+      <div>
+        <a [routerLink]="['/admin/']" class="btn btn-default"> Back</a>
+        <a [routerLink]="['/admin/houses/create']" class="btn btn-success"> New Class</a>
+      </div>
+      <br />
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <mat-card id="ToggleGridColumnsContainer" class="result">
+          <mat-card-content>
+            <h5 class="example-h2">Toggle Columns</h5>
+
+            <section class="toggle-columns-section">
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Image" color="primary">
+                <span>Image</span>
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Title" color="primary">
+                Title
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Description" color="primary">
+                Description
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Start_Date" color="primary">
+                Start Date
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.End_Date" color="primary">
+                End Date
+              </mat-slide-toggle>
+
+              <mat-slide-toggle [(ngModel)]="ShowColumns.Action" color="primary">
+                Action
+              </mat-slide-toggle>
+            </section>
+          </mat-card-content>
+        </mat-card>
+        <table class="table">
+          <thead>
+            <tr>
+              <th [hidden]="!ShowColumns.Image" class="mat-table-th">Image</th>
+              <th [hidden]="!ShowColumns.Title" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByTitle,
+                'mat-table-th_reversed': reversedByTitle,
+                'mat-table-th_inactive': !reversedByTitle && !sortedByTitle
+              }"
+                (click)="sortBy('title')">
+                Title
+              </th>
+              <th [hidden]="!ShowColumns.Description" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByDescription,
+                'mat-table-th_reversed': reversedByDescription,
+                'mat-table-th_inactive': !reversedByDescription && !sortedByDescription
+              }"
+                (click)="sortBy('description')">
+                Description
+              </th>
+              <th [hidden]="!ShowColumns.Start_Date" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByStart,
+                'mat-table-th_reversed': reversedByStart,
+                'mat-table-th_inactive': !reversedByStart && !sortedByStart
+              }"
+                (click)="sortBy('start')">
+                Start Date
+              </th>
+              <th [hidden]="!ShowColumns.End_Date" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByEnd,
+                'mat-table-th_reversed': reversedByEnd,
+                'mat-table-th_inactive': !reversedByEnd && !sortedByEnd
+              }"
+                (click)="sortBy('end')">
+                End Date
+              </th>
+              <th [hidden]="!ShowColumns.Action" class="mat-table-th action-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="loading" class="mat-table-spinner-wrapper">
+              <td colspan="7" align="center" class="mat-table-spinner">
+                <mat-spinner color="#960000"></mat-spinner>
+              </td>
+            </tr>
+            <tr *ngFor="let house of houses">
+              <td [hidden]="!ShowColumns.Image">
+                <img width="200" [src]=" imageUrl(house.image)" />
+              </td>
+              <td [hidden]="!ShowColumns.Title">{{ house.house }}</td>
+              <td [hidden]="!ShowColumns.Description" align="left">{{ house.description }}</td>
+              <td [hidden]="!ShowColumns.Start_Date">{{ house.start_date }}</td>
+              <td [hidden]="!ShowColumns.End_Date">{{ house.end_date }}</td>
+              <td [hidden]="!ShowColumns.Action">
+                <div class="btn-group" role="group" aria-label="First group">
+                  <a (click)="editHouse(house.id)" class="btn btn-info"><i class="icon_pencil"></i></a>
+                  <a (click)="openDialog(house.id)" class="btn btn-danger"><i class="icon_minus_alt2"></i></a>
+                </div>
+                <div class="action-box">
+                  <div><b>Manage Tracks</b></div>
+                  <div class="btn-group">
+                    <button title="View Tracks" type="button" class="btn btn-info btn-sm" (click)="openViewTrack(house.id)">
+                      <i class="glyphicon glyphicon-eye-open"></i> </button>
+                    <button title="Delete ALL Tracks" type="button" class="btn btn-danger  btn-sm" (click)="deleteAllTracks(house.id)">
+                      <i class="glyphicon glyphicon-remove"></i></button>
+                    <button type="button" class="btn btn-info btn-sm" (click)="getAddTrack(house.id)" title="Add Tracks">
+                      <i class="glyphicon glyphicon-road"></i>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- /END CONTAINER -->
+</section>

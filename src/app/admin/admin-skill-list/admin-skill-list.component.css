@@ -1,0 +1,28 @@
+.search-area {
+    background: #dadadc;
+    clear: both;
+    padding-bottom: 11px;
+}
+
+.search-area-ctrl {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.bg-light-grey {
+    background-color: #f3f3f3 !important;
+}
+
+.correct-answer {
+  border-width: 2px;
+  border-style: solid;
+  border-color: green;
+  margin: 0.5rem;
+}
+
+.alert-absolute{
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    z-index: 11111;
+}

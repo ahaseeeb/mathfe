@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>
+  {{user.name}}
+</h2>
+<mat-dialog-content>
+  <div class="row" *ngIf="loading">
+    <div class="col-s12">
+      <div class="mat-table-spinner txt-center">
+        <mat-spinner color="#960000"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="!loading">
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="user" class="col-lg-6 control-label">User </label>
+        <div class="col-lg-6">
+          <p>{{user.name || 'N/A'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="email" class="col-lg-6 control-label">Email</label>
+        <div class="col-lg-6">
+          <p>{{user.email || 'N/A'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="firstname" class="col-lg-6 control-label">First Name</label>
+        <div class="col-lg-6">
+          <p>{{user.firstname || 'N/A'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="lastname" class="col-lg-6 control-label">Last Name</label>
+        <div class="col-lg-6">
+          <p>{{user.lastname || 'N/A'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="maxile_level" class="col-lg-6 control-label">Maxile Level</label>
+        <div class="col-lg-6">
+          <p>{{user.maxile_level || 'N/A'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="game_level" class="col-lg-6 control-label">Game Level (Kudos)</label>
+        <div class="col-lg-6">
+          <p>{{user.game_level || 'N/A'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

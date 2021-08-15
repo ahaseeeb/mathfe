@@ -1,0 +1,344 @@
+<section class="screenshots grey-bg" id="skills">
+  <div class="container">
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+      <!-- SECTION TITLE -->
+      <h2 class="dark-text">All Skills</h2>
+      <div class="colored-line">
+      </div>
+    </div>
+    <!-- /END SECTION HEADER -->
+    <div *ngIf="updateStatus" class="alert alert-success alert-dismissible" role="alert">
+      {{ updateStatus }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="resetUpdateStatus()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div *ngIf="copyMessage" class="alert alert-dismissible alert-absolute" [class.alert-success]="copyMessageSuccess" [class.alert-danger]="!copyMessageSuccess" role="alert">
+      {{ copyMessage }} 
+    </div>
+    <div class="col-md-12">
+      <div>
+        <a [routerLink]="['/admin/']" class="btn btn-default"> Back</a>
+        <a [routerLink]="['/admin/skills/create']" class="btn btn-success"> New Skill</a>
+      </div>
+      <br />
+    </div>
+    <div class="row search-area">
+      <div class="col-md-12 search-area-ctrl">
+        <input (input)="doSearch($event.target.value)" class="form-control" type="text" placeholder="Search by Author | Description | Skill Title">
+      </div>
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <mat-card id="ToggleGridColumnsContainer" class="result">
+            <mat-card-content>
+              <h5 class="example-h2">Toggle Columns</h5>
+
+              <section class="toggle-columns-section">
+                <mat-slide-toggle [(ngModel)]="ShowColumns.ID" color="primary">
+                  ID
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Skill" color="primary">
+                  Skill
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Title" color="primary">
+                  Title
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Description" color="primary">
+                  Description
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Author" color="primary">
+                  Author
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Tracks" color="primary">
+                  Track
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Questions" color="primary">
+                  Questions
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Action" color="primary">
+                  Action
+                </mat-slide-toggle>
+              </section>
+            </mat-card-content>
+          </mat-card>
+          <table class="table">
+            <thead>
+              <tr>
+                <th [hidden]="!ShowColumns.ID" class="mat-table-th">ID</th>
+                <th [hidden]="!ShowColumns.Skill" class="mat-table-th">Skill</th>
+                <th [hidden]="!ShowColumns.Title" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                  'mat-table-th_active': sortedByTitle,
+                  'mat-table-th_reversed': reversedByTitle,
+                  'mat-table-th_inactive': !reversedByTitle && !sortedByTitle
+                }"
+                    (click)="sortBy('title')">
+                  Title
+                </th>
+                <th [hidden]="!ShowColumns.Description" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                  'mat-table-th_active': sortedByDescription,
+                  'mat-table-th_reversed': reversedByDescription,
+                  'mat-table-th_inactive': !reversedByDescription && !sortedByDescription
+                }"
+                    (click)="sortBy('description')">
+                  Description
+                </th>
+                <th [hidden]="!ShowColumns.Author" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByAuthor,
+                'mat-table-th_reversed': reversedByAuthor,
+                'mat-table-th_inactive': !reversedByAuthor && !sortedByAuthor
+              }"
+                    (click)="sortBy('Author')">
+                  Author
+                </th>
+                <th [hidden]="!ShowColumns.Tracks" class="mat-table-th">Tracks</th>
+                <th [hidden]="!ShowColumns.Questions" class="mat-table-th">Questions</th>
+                <th [hidden]="!ShowColumns.Action" class="mat-table-th action-2">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background-color: #f3f3f3;" *ngIf="skills.length==0 && !loading">
+                <td colspan="8" align="center">
+                  <p>No data exist!!</p>
+                </td>
+              </tr>
+              <tr *ngIf="loading" class="mat-table-spinner-wrapper">
+                <td colspan="7" align="center" class="mat-table-spinner">
+                  <mat-spinner color="#960000"></mat-spinner>
+                </td>
+              </tr>
+              <ng-container *ngFor="let skill of skills">
+                <tr>
+                  <td [hidden]="!ShowColumns.ID">{{ skill.id }}</td>
+                  <td [hidden]="!ShowColumns.Skill">
+                    <div *ngFor="let v of skill.videos">
+                      <img *ngIf="!v.play" style="height:142px;" (click)="v.play=true" src="/assets/images/play_video.png" />
+                      <div *ngIf="v.play">
+                        <video width="250" controls autoplay>
+                          <source [src]="v.link" type="video/mp4" />
+                          Your browser does not support HTML5 video.
+                        </video>
+                      </div>
+                    </div>
+                    <div *ngIf="skill.videos.length==0">
+                      <span style="color:#2a6496">No video for this skill</span>
+                    </div>
+                    <!--<img *ngIf="!skill.play" style="height:142px;" (click)="skill.play=true" src="/assets/images/play_video.png" />
+                    <div *ngIf="skill.play">
+                      <video width="250" controls autoplay>
+                        <source [src]="videoUrl(skill)" type="video/mp4" />
+                        Your browser does not support HTML5 video.
+                      </video>
+                    </div>-->
+
+                  </td>
+                  <td [hidden]="!ShowColumns.Title">{{ skill.skill }}
+                  </td>
+                  <td [hidden]="!ShowColumns.Description">
+                    <p>{{ skill.description }}</p>
+                  </td>
+                  <td [hidden]="!ShowColumns.Author">{{ skill.user.firstname }} {{skill.user.lastname}}</td>
+
+                  <td [hidden]="!ShowColumns.Tracks">
+                    <a (click)="showTracks(skill.id)">Show Tracks</a>
+                  </td>
+                  <td [hidden]="!ShowColumns.Questions">
+                    <a data-toggle="collapse" (click)="loadQuestions(skill)" href="#collapse{{skill.id}}">Questions</a>
+                  </td>
+                  <td [hidden]="!ShowColumns.Action">
+
+                    <div class="btn-group" role="group" aria-label="First group">
+                      <a (click)="editSkill(skill.id)" class="btn btn-info"><i class="icon_pencil"></i></a>
+                      <a (click)="openDialog(skill.id)" class="btn btn-danger"><i class="icon_minus_alt2"></i></a>
+                      <a (click)="copySkill(skill.id)" class="btn btn-success"><i class="fa fa-clone"></i></a>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="panel-collapse collapse" id="collapse{{skill.id}}">
+                  <td class="bg-light-grey" colspan="7">
+                    <div *ngIf="skill.loadingQuestions" class="mat-table-spinner-wrapper">
+                      <div colspan="5" align="center" class="mat-table-spinner">
+                        <mat-spinner color="#960000"></mat-spinner>
+                      </div>
+
+                    </div>
+                    <div *ngIf="skill.questions?.length==0 && !skill.loadingQuestions">
+                      <p>No data exist!!</p>
+                    </div>
+                    <div *ngIf="skill.questions?.length > 0">
+                      <table class="table">
+                        <thead>
+                          <tr class="bg-light-grey">
+                            <th class="mat-table-th">ID</th>
+                            <th class="mat-table-th">Difficulty</th>
+                            <th class="mat-table-th">Question</th>
+                            <th class="mat-table-th">Answer</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-light-grey" *ngFor="let question of skill.questions">
+                            <td>{{question.id}}</td>
+                            <td>{{question.difficulty_id}}</td>
+                            <td>
+                              <div style="display:none;" [id]="'katexDiv' + question.id">
+                                {{displayKatex(question.question, question.id, true, 'katexDiv' + question.id)}}
+                              </div>
+                              <span *ngIf="((question.question.indexOf('<') < 0) && (!displayKatex(question.question)))">
+                                {{question.question}}
+                              </span>
+                              <img *ngIf="!question.calculator && question.question_image && question.question.indexOf('<') < 0 && !displayKatex(question.question)"
+                                   style="margin-top: 0.25rem; margin-bottom: 0.25rem;" src="{{beURL}}{{question.question_image}}"
+                                   width="150" />
+                              <dynamic-content *ngIf="((question.question.indexOf('<') >= 0) && (!displayKatex(question.question)) )"
+                                               [question]="question">
+                              </dynamic-content>
+                              <svg *ngIf="question.calculator && !displayKatex(question.question)" style="width: 3rem"
+                                   aria-hidden="true" data-prefix="fas" data-icon="calculator" class="svg-inline--fa fa-calculator fa-w-14"
+                                   role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path fill="currentColor" d="M400 0H48C22.4 0 0 22.4 0 48v416c0 25.6 22.4 48 48 48h352c25.6 0 48-22.4 48-48V48c0-25.6-22.4-48-48-48zM128 435.2c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm0-128c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm128 128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm0-128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm128 128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8V268.8c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v166.4zm0-256c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8V76.8C64 70.4 70.4 64 76.8 64h294.4c6.4 0 12.8 6.4 12.8 12.8v102.4z">
+                                </path>
+                              </svg>
+                            </td>
+                            <td>
+                              <div [ngClass]="{'correct-answer': question.correct_answer === 0 && question.type_id===1, 'row': true}">
+                                <div *ngIf="question.answer0 && !displayKatex(question.answer0)" class="col-sm-12">
+                                  {{question.answer0}}
+                                </div>
+                                <div style="display: none;" [id]="'katexDiv_answer0' + question.id">
+                                  {{
+displayKatex(question.answer0, question.id, true, 'katexDiv_answer0' +
+                                  question.id)
+                                  }}
+                                </div>
+                                <div class="col-sm-12">
+                                  <img *ngIf="question.answer0_image" src="{{beURL}}{{question.answer0_image}}" width="150" />
+                                </div>
+                              </div>
+                              <div [ngClass]="{'correct-answer': question.correct_answer === 1 && question.type_id === 1, 'row': true}">
+                                <div *ngIf="question.answer1  && !displayKatex(question.answer1)" class="col-sm-12">
+                                  {{question.answer1}}
+                                </div>
+                                <div style="display: none;" [id]="'katexDiv_answer1' + question.id">
+                                  {{
+displayKatex(question.answer1, question.id, true, 'katexDiv_answer1' +
+                                  question.id)
+                                  }}
+                                </div>
+                                <div class="col-sm-12">
+                                  <img *ngIf="question.answer1_image" src="{{beURL}}{{question.answer1_image}}" width="150" />
+                                </div>
+                              </div>
+                              <div [ngClass]="{'correct-answer': question.correct_answer === 2 && question.type_id === 1, 'row': true}">
+                                <div *ngIf="question.answer2  && !displayKatex(question.answer2)" class="col-sm-12">
+                                  {{question.answer2}}
+                                </div>
+                                <div style="display: none" [id]="'katexDiv_answer2' + question.id">
+                                  {{
+displayKatex(question.answer2, question.id, true, 'katexDiv_answer2' +
+                                  question.id)
+                                  }}
+                                </div>
+                                <div class="col-sm-12">
+                                  <img *ngIf="question.answer2_image" src="{{beURL}}{{question.answer2_image}}" width="150" />
+                                </div>
+                              </div>
+                              <div [ngClass]="{'correct-answer': question.correct_answer === 3 && question.type_id === 1, 'row': true}">
+                                <div *ngIf="question.answer3  && !displayKatex(question.answer3)" class="col-sm-12">
+                                  {{question.answer3}}
+                                </div>
+                                <div style="display: none" [id]="'katexDiv_answer3' + question.id">
+                                  {{
+displayKatex(question.answer3, question.id, true, 'katexDiv_answer3' +
+                                  question.id)
+                                  }}
+                                </div>
+                                <div class="col-sm-12">
+                                  <img *ngIf="question.answer3_image" src="{{beURL}}{{question.answer3_image}}" width="150" />
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /END CONTAINER -->
+</section>
+<div style="display:none" class="modal fade" id="trackPassed" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="hideTracks()">&times;</button>
+        <h4 class="modal-title">Tracks</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <fieldset>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Track</th>
+                        <th>Description</th>
+                        <!-- <th>Level</th>
+                        <th>Level Age</th>
+                        <th>Start Maxile Level</th>
+                        <th>End Maxile Level</th>  -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="!modalLoader && currentTracks.length==0" class="mat-table-spinner-wrapper">
+                        <td colspan="2" align="center">
+                          <p>No data exist!!</p>
+                        </td>
+                      </tr>
+                      <tr *ngIf="modalLoader" class="mat-table-spinner-wrapper">
+                        <td colspan="2" align="center" class="mat-table-spinner">
+                          <mat-spinner color="#960000"></mat-spinner>
+                        </td>
+                      </tr>
+                      <tr *ngFor="let track of currentTracks">
+                        <td>{{track.track}}</td>
+                        <td>{{track.description}}</td>
+                        <!-- <td>{{track.level.level}}</td>
+                        <td>{{track.level.age}}</td>
+                        <td>{{track.level.start_maxile_level}}</td>
+                        <td>{{track.level.end_maxile_level}}</td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                  v>
+                </div>
+                v>
+              </div>
+              <div class="modal-footer">
+                <div class="form-group">
+                  <div class="col-lg-6 col-lg-offset4">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="hideTracks()">Close</button>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

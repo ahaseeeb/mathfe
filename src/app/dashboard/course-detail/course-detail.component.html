@@ -1,0 +1,50 @@
+<div *ngIf="selectedCourse">
+  <div class="container course-detail">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <img [src]="beURL+selectedCourse.image" class="img-responsive">
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <h3>{{selectedCourse.course | uppercase}}</h3>
+        <h4 class="main-color">Topics Covered</h4>
+        <div class="colored-line">
+        </div>
+        <p></p>
+        <ul class="package-feature">
+          <li *ngFor="let track of selectedCourse.tracks" class="col-sm-6"><p align="left">{{track.track}}</p></li>
+        </ul>
+      </div>
+    </div>
+    <div class="buttons wow fadeInRight animated" data-wow-offset="10" data-wow-duration="1.5s">
+      <h3 *ngIf="(selectedCourse.valid_houses.length > 0); else emptyHouse">Classes available for Course: {{selectedCourse.course}}</h3>
+      <ng-template #emptyHouse>
+          <h3>There is no class available for this course.</h3>
+      </ng-template>
+    <table class="table table-striped" *ngFor="let house of selectedCourse.valid_houses">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Class</th>
+      <th scope="col">Teacher</th>
+      <th scope="col">Course</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"></th>
+      <td><img src="{{beURL}}{{house.image}}" width="150"></td>
+      <td><img *ngIf="house.created_by.image" src="{{house.created_by.image}}" width="120"><br>{{house.created_by.firstname}} {{house.created_by.lastname}}</td>
+      <td>{{selectedCourse.course}}</td>
+      <td>{{house.start_date}}</td>
+      <td>{{house.end_date}}</td>
+      <td><a *ngIf="!isAuthenticated()" (click)="login(house)">Enrol</a></td>
+      <td><a *ngIf="isAuthenticated()" href="/member" (click)="directEnrol(house)">Enrol</a></td>
+    </tr>
+  </tbody>
+</table>
+    </div>     
+  </div>
+</div>

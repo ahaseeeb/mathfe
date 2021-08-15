@@ -1,0 +1,129 @@
+<h2 mat-dialog-title>
+  {{house.house}}
+</h2>
+<mat-dialog-content>
+  <div class="row" *ngIf="loading">
+    <div class="col-s12">
+      <div class="mat-table-spinner txt-center">
+        <mat-spinner color="#960000"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="!loading">
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="txtHouse" class="col-lg-6 control-label">Class Title</label>
+        <div class="col-lg-6">
+          <p>{{house.house}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="start_date" class="col-lg-6 control-label">Start Date</label>
+        <div class="col-lg-6">
+          <p>{{house.start_date}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+
+      <div class="form-group">
+        <label for="end_date" class="col-lg-6 control-label">End Date</label>
+        <div class="col-lg-6">
+          <p>{{house.end_date}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="description" class="col-lg-6 control-label">Price</label>
+        <div class="col-lg-6">
+          <p>{{house.currency}} {{house.price}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="description" class="col-lg-6 control-label">Under Perform</label>
+        <div class="col-lg-6">
+          <p>{{house.underperform}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-4">
+      <div class="form-group">
+        <label for="description" class="col-lg-6 control-label">Over Perform</label>
+        <div class="col-lg-6">
+          <p>{{house.overperform}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-s12 col-md-12">
+      <div class="form-group">
+        <label for="description" class="col-lg-2 control-label">Description</label>
+        <div class="col-lg-10 text-left">
+          <p>{{house.description}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- 
+           
+            <div class="form-group">
+              <label for="description" class="col-lg-2 control-label">Description</label>
+              <div class="col-lg-10">
+                <textarea class="form-control" rows="3" id="description" name="description" placeholder="Description of the house"
+                  [(ngModel)]="house.description" #description="ngModel" required></textarea>
+                <div *ngIf="description.errors?.required && description.touched" class="alert alert-danger">
+                  Description is required
+                </div>
+              </div>
+            </div>
+            <div>
+           
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-lg-2 control-label">Course</label>
+              <div class="col-lg-10">
+                <select class="form-control" #course_id="ngModel" [(ngModel)]="house.course_id" id="course_id" required
+                  name="course_id" placeholder="House's couse">
+                  <option value="" disabled selected>Select Course</option>
+                  <option *ngFor="let course of courses" [value]="course.id">
+                    {{course.course}}
+                  </option>
+                </select>
+                <div *ngIf="course_id.errors?.required && course_id.touched" class="alert alert-danger">
+                  Course is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-lg-2 control-label">Currency</label>
+              <div class="col-lg-10">
+                <select class="form-control" #currency="ngModel" [(ngModel)]="house.currency" id="currency" required
+                  name="currency" placeholder="House's couse">
+                  <option value="" disabled selected>Select Currency</option>
+                  <option *ngFor="let currency of currencies" [value]="currency">
+                    {{currency}}
+                  </option>
+                </select>
+                <div *ngIf="currency.errors?.required && currency.touched" class="alert alert-danger">
+                  Currency is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-lg-2 control-label">Price</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="price" name="price" placeholder="Price" [(ngModel)]="house.price"
+                  #price="ngModel" required>
+                <div *ngIf="price.errors?.required && price.touched" class="alert alert-danger">
+                  Price is required
+                </div>
+              </div>
+            </div> -->
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

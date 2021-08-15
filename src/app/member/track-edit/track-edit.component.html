@@ -1,0 +1,83 @@
+<div class="modal fade" id="editTrack" role="dialog">
+	<div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" (click)="closeEditModal()">&times;</button>
+	      <h4 class="modal-title">Edit Track</h4>
+	    </div>
+	    <div class="modal-body">
+		<div *ngIf="state=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+		<div *ngIf="state=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<form novalidate class="form-horizontal" (ngSubmit)="updateTrack(track)" #editTrackForm="ngForm">
+				  <fieldset>
+				    <div class="form-group">
+			          <div class="col-lg-2">
+			          	<label for="status_id">Track Name</label>
+			          </div>				    	
+				      <div class="col-lg-10">
+				        <input type="text" class="form-control" id="track_name" name="track_name" placeholder="Track Name" [(ngModel)]="track1.track" #track_name="ngModel" required>
+				           <div *ngIf="track_name.errors?.required && track_name.dirty" class="alert alert-danger">
+				             Track Name is required
+				           </div>
+				      </div>
+				    </div>
+				    <div class="form-group">
+			          <div class="col-lg-2">
+			          	<label for="status_id">Description</label>
+			          </div>				    	
+				      <div class="col-lg-10">
+				        <textarea class="form-control" rows="1" id="description" name="description" placeholder="Track Description" [(ngModel)]="track1.description" #description="ngModel"></textarea>
+				      </div>
+				    </div>
+				    <div class='row'>
+				        <div class="form-group col-md-6">
+				        	<div class="col-lg-4">
+				        		<label for="level_id">Level</label>
+				        	</div>
+				          <div class="col-lg-8">
+							<select class="form-control" id="level_id" required [(ngModel)]="track1.level_id" #level_id="ngModel" name="level_id" placeholder="Track's level">
+							    <option *ngFor="let level of levels" [value]="level.id">
+							        {{level.description}} ~ Level: {{level.level}} </option>
+							</select>
+				          </div>
+				        </div>
+				        <div class="form-group col-md-6">
+				          <div class="col-lg-4">
+				          	<label for="status_id">Publishing</label>
+				          </div>
+				          <div class="col-lg-8">
+							<select class="form-control" id="status_id" required [(ngModel)]="track1.status_id" #status_id="ngModel" name="status_id" placeholder="Track's status">
+								<option *ngFor="let status of statuses" [value]="status.id">
+							        {{status.status}} - {{status.description}} </option>
+							</select>
+					          </div>
+					        </div>
+					        <div class="form-group col-md-12">
+					          <div class="col-lg-2">
+					          	<label for="status_id">Field</label>
+					          </div>
+					          <div class="col-lg-10">
+							<select class="form-control" id="field_id" required [(ngModel)]="track1.field_id" #field_id="ngModel" name="field_id" placeholder="Track's field">
+							    <option *ngFor="let field of fields" [value]="field.id">
+							        {{field.field}} ~ {{field.description}} </option>
+							</select>
+					          </div>
+					        </div>
+					 </div>
+				        <div class="modal-footer">
+						    <div class="form-group">
+						      <div class="col-lg-6 col-lg-offset4">
+						        <button type="submit" class="btn btn-primary">Update</button>
+						      </div>
+						    </div>
+				        </div>
+				   </fieldset>
+				</form>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</div>

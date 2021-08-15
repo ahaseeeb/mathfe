@@ -1,0 +1,39 @@
+th.mat-sort-header-sorted {
+	color: black;
+}
+
+.correct-answer {
+	border-width: 2px;
+	border-style: solid;
+	border-color: green;
+	margin: 0.5rem;
+}
+
+.mat-row:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.mat-table {
+	font-family: 'Raleway', sans-serif;
+}
+
+.mat-expansion-indicator {
+	color: white!important;
+}
+
+td.mat-cell {
+	text-align: left;
+}
+
+mat-expansion-panel-header, mat-expansion-panel-header:hover {
+	background-color: #fff!important;
+}
+
+.mat-expansion-panel-body {
+	padding: 10px !important;
+}
+
+.page-nav-select {
+    text-align: left;
+    margin-top: 10px;
+}

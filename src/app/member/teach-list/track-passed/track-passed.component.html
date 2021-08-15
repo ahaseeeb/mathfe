@@ -1,0 +1,32 @@
+<div class="modal fade" id="trackPassed" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="closeModal()">&times;</button>
+        <h4 class="modal-title">Track Passed</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <fieldset>
+              <div class="modal-body">
+                <ul>
+                  <li *ngFor="let track of trackResult">{{track.track}}</li>
+                  <li *ngIf="trackResult.length==0">No track has been passed yet!</li>
+                </ul>
+
+              </div>
+              <div class="modal-footer">
+                <div class="form-group">
+                  <div class="col-lg-6 col-lg-offset4">
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="closeModal()">Close</button>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

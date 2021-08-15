@@ -1,0 +1,169 @@
+/* MODAL STYLES
+-------------------------------*/
+jw-modal {
+  display: block;
+  width: 44%;
+  height: fit-content;
+  margin: auto;
+  background: #ddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 12px;
+  z-index:9999;
+}
+.jw-close{
+  float:right;
+  padding-right: 15px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+.jw-title{
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 300
+}
+@media screen and (max-width: 1400px) {
+  jw-modal {
+      width: 47%;
+  }
+}
+@media screen and (max-width: 1300px) {
+  jw-modal {
+      width: 51%;
+  }
+}
+@media screen and (max-width: 1280px) {
+  jw-modal {
+      width: 53%;
+  }
+}
+@media screen and (max-width: 1200px) {
+  jw-modal {
+      width: 54%;
+  }
+}
+@media screen and (max-width: 1100px) {
+  jw-modal {
+      width: 57%;
+  }
+}
+@media screen and (max-width: 1020px) {
+  jw-modal {
+      width: 60%;
+  }
+}
+@media screen and (max-width: 970px) {
+  jw-modal {
+      width: 63%;
+  }
+}
+@media screen and (max-width: 870px) {
+  jw-modal {
+      width: 70%;
+  }
+}
+@media screen and (max-width: 800px) {
+  jw-modal {
+      width: 86%;
+  }
+}
+@media screen and (max-width: 670px) {
+  jw-modal {
+      width: 94%;
+  }
+}
+.jw-modal-container {
+  width: 75%;
+  margin: auto;
+  border-style: ridge;
+  padding: 10px;
+}
+.second-container {
+  margin-top: 10px;
+  padding: 25px;
+}
+.third-container {
+  border: 0;
+  margin-top: 10px;
+}
+.jw-modal-row {
+  text-align: left;
+}
+.jw-modal-row label {
+  font-size: 13px;
+  font-weight: normal;
+}
+.enrol-parent-field {
+  padding-left: 20px;
+}
+.student-mail-group {
+  max-height: 148px;
+  overflow-y: scroll;
+}
+.student-mail {
+  margin-left: 25px;
+  width: 70%;
+}
+.student-mail-disable {
+  margin-left: 25px;
+  width: 70%;
+  background: round;
+}
+input:required:focus {
+  border: 1px solid red;
+  outline: none;
+}
+input:required:hover {
+  opacity: 1;
+}
+.number-place {
+  margin-left: 15px;
+  width: 70%;
+}
+.number-place-disable {
+  margin-left: 15px;
+  width: 70%;
+  background: round;
+}
+.price, .currency, .description, .amount {
+  width: 80%;
+  background: round;
+}
+.currency {
+  margin-left: 25px;
+}
+.price {
+  margin-left: 48px;
+}
+.description {
+  margin-left: 13px;
+}
+.amount {
+  margin-left: 5px;
+}
+.modal-btn {
+  width: 100px;
+}
+
+.nav.nav-pills li {
+  margin-bottom: 5px;
+}
+
+.nav.nav-pills li:hover {
+  background-color: #960000 !important;
+}
+
+.is-form-invaild{
+  position: absolute;
+    height: 130px;
+    width: 100%;
+    cursor: not-allowed;
+    z-index: 999;
+}
+.txt-center{
+  text-align: center;
+}

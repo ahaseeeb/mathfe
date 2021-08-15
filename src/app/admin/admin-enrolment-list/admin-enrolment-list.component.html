@@ -1,0 +1,195 @@
+<section class="screenshots grey-bg" id="enrolments">
+  <div class="container">
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+      <!-- SECTION TITLE -->
+      <h2 class="dark-text">All Enrolments</h2>
+      <div class="colored-line">
+      </div>
+    </div>
+    <!-- /END SECTION HEADER -->
+    <div *ngIf="updateStatus" class="alert alert-success alert-dismissible" role="alert">
+      {{ updateStatus }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="resetUpdateStatus()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="col-md-12">
+      <div>
+        <a [routerLink]="['/admin/']" class="btn btn-default"> Back</a>
+        <a [routerLink]="['/admin/enrolments/create']" class="btn btn-success"> New enrolment</a>
+      </div>
+      <br />
+    </div>
+    <div class="row search-area">
+      <div class="col-md-12 search-area-ctrl">
+        <input (input)="doSearch($event.target.value)" class="form-control" type="text"
+          placeholder="Search by House | User">
+      </div>
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <mat-card id="ToggleGridColumnsContainer" class="result">
+            <mat-card-content>
+              <h5 class="example-h2">Toggle Columns</h5>
+
+              <section class="toggle-columns-section">
+                <mat-slide-toggle [(ngModel)]="ShowColumns.User" color="primary">
+                  User
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Houses_Image" color="primary">
+                  Houses
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Role" color="primary">
+                  Role
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Progress" color="primary">
+                  Progress
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.TxnID" color="primary">
+                  TxnID
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Start_Date" color="primary">
+                  Start Date
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Expiry_Date" color="primary">
+                  Expiry Date
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Mastercode" color="primary">
+                  Mastercode
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Amount_Paid" color="primary">
+                  Amount Paid
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Places" color="primary">
+                  Places
+                </mat-slide-toggle>
+
+                <mat-slide-toggle [(ngModel)]="ShowColumns.Action" color="primary">
+                  Action
+                </mat-slide-toggle>
+              </section>
+            </mat-card-content>
+          </mat-card>
+          <table class="table">
+            <thead>
+              <tr>
+                <th [hidden]="!ShowColumns.User" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                  'mat-table-th_active': sortedByName,
+                  'mat-table-th_reversed': reversedByName,
+                  'mat-table-th_inactive': !reversedByName && !sortedByName
+                }" (click)="sortBy('name')">User</th>
+                <th [hidden]="!ShowColumns.Houses_Image" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                  'mat-table-th_active': sortedByHouse_Name,
+                  'mat-table-th_reversed': reversedByHouse_Name,
+                  'mat-table-th_inactive': !reversedByHouse_Name && !sortedByHouse_Name
+                }" (click)="sortBy('house_name')">Houses Images</th>
+                <th [hidden]="!ShowColumns.Role" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByRole,
+                'mat-table-th_reversed': reversedByRole,
+                'mat-table-th_inactive': !reversedByRole && !sortedByRole
+              }" (click)="sortBy('role')">
+                  Role
+                </th>
+
+                <th [hidden]="!ShowColumns.Progress" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByProgress,
+                'mat-table-th_reversed': reversedByProgress,
+                'mat-table-th_inactive': !reversedByProgress && !sortedByProgress
+              }" (click)="sortBy('progress')">
+                  Progress
+                </th>
+                <th [hidden]="!ShowColumns.TxnID" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByTxnID,
+                'mat-table-th_reversed': reversedByTxnID,
+                'mat-table-th_inactive': !reversedByTxnID && !sortedByTxnID
+              }" (click)="sortBy('txnID')">
+                  Transaction Id
+                </th>
+                <th [hidden]="!ShowColumns.Start_Date" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByStart_Date,
+                'mat-table-th_reversed': reversedByStart_Date,
+                'mat-table-th_inactive': !reversedByStart_Date && !sortedByStart_Date
+              }" (click)="sortBy('start_date')">
+                  Start Date
+                </th>
+                <th [hidden]="!ShowColumns.Expiry_Date" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByExpiry_Date,
+                'mat-table-th_reversed': reversedByExpiry_Date,
+                'mat-table-th_inactive': !reversedByExpiry_Date && !sortedByExpiry_Date
+              }" (click)="sortBy('expiry_date')">
+                  Expiry Date
+                </th>
+                <th [hidden]="!ShowColumns.Mastercode" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByMastercode,
+                'mat-table-th_reversed': reversedByMastercode,
+                'mat-table-th_inactive': !reversedByMastercode && !sortedByMastercode
+              }" (click)="sortBy('mastercode')">
+                  Mastercode
+                </th>
+                <th [hidden]="!ShowColumns.Amount_Paid" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByAmount_Paid,
+                'mat-table-th_reversed': reversedByAmount_Paid,
+                'mat-table-th_inactive': !reversedByAmount_Paid && !sortedByAmount_Paid
+              }" (click)="sortBy('amount_paid')">
+                  Amount Paid
+                </th>
+                <th [hidden]="!ShowColumns.Places" class="mat-table-th mat-table-th_clickable" [ngClass]="{
+                'mat-table-th_active': sortedByPlaces,
+                'mat-table-th_reversed': reversedByPlaces,
+                'mat-table-th_inactive': !reversedByPlaces && !sortedByPlaces
+              }" (click)="sortBy('places')">
+                  Places
+                </th>
+                <th [hidden]="!ShowColumns.Action">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="loading" class="mat-table-spinner-wrapper">
+                <td colspan="11" align="center" class="mat-table-spinner">
+                  <mat-spinner color="#960000"></mat-spinner>
+                </td>
+              </tr>
+              <tr *ngFor="let enrolment of enrolments">
+                <td class="cursor-pointer" (click)="openUserDetailDialog(enrolment.users.id)"
+                  [hidden]="!ShowColumns.User"><img src="{{enrolment.users.image}}" width="75"
+                    (error)="handleImageLoadError($event)" />
+                  <p>{{enrolment.users.name}}</p>
+                </td>
+                <td (click)="openHouseDetailDialog(enrolment.houses.id)" class="cursor-pointer"
+                  [hidden]="!ShowColumns.Houses_Image">
+                  <img width="200" [src]="imageUrl(enrolment.houses.image)" width="75"
+                    (error)="handleImageLoadError($event)" />
+                  <p>{{enrolment.houses.house}}</p>
+                </td>
+                <td [hidden]="!ShowColumns.Role">{{enrolment.roles.role}}</td>
+                <td [hidden]="!ShowColumns.Progress">{{enrolment.progress }}</td>
+                <td [hidden]="!ShowColumns.TxnID">{{enrolment.transaction_id || 'N/A'}}</td>
+                <td [hidden]="!ShowColumns.Start_Date">{{enrolment.start_date}}</td>
+                <td [hidden]="!ShowColumns.Expiry_Date">{{enrolment.expiry_date}}</td>
+                <td [hidden]="!ShowColumns.Mastercode">{{enrolment.mastercode}}</td>
+                <td [hidden]="!ShowColumns.Amount_Paid">{{enrolment.amount_paid || 'N/A'}}</td>
+                <td [hidden]="!ShowColumns.Places">{{enrolment.places_alloted || 'N/A'}}</td>
+                <td [hidden]="!ShowColumns.Action">
+                  <div class="btn-group" role="group" aria-label="First group">
+                    <a (click)="editEnrolment(enrolment.id)" class="btn btn-info"><i class="icon_pencil"></i></a>
+                    <a (click)="openDialog(enrolment.id)" class="btn btn-danger"><i class="icon_minus_alt2"></i></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /END CONTAINER -->
+</section>

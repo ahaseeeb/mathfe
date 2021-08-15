@@ -1,0 +1,57 @@
+<section class="screenshots grey-bg" id="fields">
+
+  <div class="container">
+    
+    <!-- SECTION HEADER -->
+    <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+       
+      <h2 class="dark-text">Add a New Field</h2>
+      
+      <div class="colored-line">
+      </div>
+      
+    </div>
+  
+    <div *ngIf="status=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+      <div *ngIf="status=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+      <div class="col-md-10 col-md-offset-1">
+      <div>
+        <a [routerLink]="['/admin/']" class="btn btn-default"> Back</a>
+      </div>
+    </div>
+  
+    <div class="col-md-10 col-md-offset-1">
+      <div class="well well bs-component">
+        <form novalidate class="form-horizontal" (ngSubmit)="createField(createFieldForm.value)" #createFieldForm="ngForm">
+          <fieldset> 
+            <div class="form-group">
+              <label for="field" class="col-lg-2 control-label">Field Title</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="field" name="field" placeholder="Field Title" ngModel #field="ngModel" required>
+                <div *ngIf="field.errors?.required && field.touched" class="alert alert-danger">
+                  Field Title is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-lg-2 control-label">Description</label>
+              <div class="col-lg-10">
+                <textarea class="form-control" rows="3" id="description" name="description" placeholder="Description of the field" ngModel #description="ngModel" required></textarea>
+                <div *ngIf="description.errors?.required && description.touched" class="alert alert-danger">
+                  Description is required
+                </div>
+              </div>
+            </div> 
+  
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <a [routerLink]="['/admin/fields']" class="btn btn-default"> Cancel</a>
+                <button type="submit" class="btn btn-primary" [disabled]="createFieldForm.invalid">Create</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+  </section>

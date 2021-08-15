@@ -1,0 +1,28 @@
+<div class="screenshots grey-bg">
+  <div class="container">
+    <div class="membercontent">
+      <div class="col-xs-12 m-b-10">
+        <a class="btn btn-default pull-left" routerLink="/member/class-management">Back to Class Management</a>
+      </div>
+      <div class="container">
+        <ul class="nav nav-pills">
+          <li [class.active]="activeTab==1" class="m-b-10"><a routerLink="/member/student-management/{{houseid}}">Student Management</a></li>
+          <li [class.active]="activeTab==2" class="m-b-10"><a routerLink="/member/course-management/{{houseid}}">Course Management</a></li>
+
+        </ul>
+      </div>
+      <div class="tab-content membercontent">
+        <section class="enrolled" id="enrolled" class="tab-pane fade in active" [class.active]="activeTab==1">
+          <ag-teach-detail-student [user]="user" [selectedTeach]="selectedTeach" (selectedEvent)="selectTeach($event)" (selectedVideo)="selectSkill($event)"></ag-teach-detail-student>
+        </section>
+        <section class="enrolled" id="teaching" class="tab-pane fade in" [class.active]="activeTab==2">
+          <ag-teach-detail-course [user]="user" [selectedTeach]="selectedTeach" (selectedEvent)="selectTeach($event)" (selectedVideo)="selectSkill($event)"></ag-teach-detail-course>
+        </section>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+

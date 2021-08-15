@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>
+  <p *ngIf="updateStatus" class="alert alert-success alert-dismissible" role="alert">
+    {{ updateStatus }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="resetUpdateStatus()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </p>
+</h2>
+<mat-dialog-content class="mat-typography">
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Track</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="tracks.length==0 && !loading">
+          <td colspan="6">
+            <div>There is no track available for this class.</div>
+          </td>
+        </tr>
+        <tr *ngFor="let track of tracks">
+          <td align="left">{{track.track}} </td>
+          <td align="left">{{track.description}}</td>
+          <td>{{track.status.status}}</td>
+          <td>{{track.level.description}}</td>
+          <td>
+            <ol *ngFor="let house of track.houses">
+              <li>{{house.house}}</li>
+            </ol>
+          </td>
+          <td>
+            <div class="btn-group" role="group" aria-label="First group">
+              <button type="button" class="btn btn-primary" (click)="UnlinkTrack(track.id)">Unlink Track</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="loading" class="mat-table-spinner-wrapper">
+      <div align="center" class="mat-table-spinner">
+        <mat-spinner color="#960000"></mat-spinner>
+      </div>
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
+

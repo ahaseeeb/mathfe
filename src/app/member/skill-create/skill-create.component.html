@@ -1,0 +1,50 @@
+<div *ngIf="state=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+<div *ngIf="state=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+
+<div class="col-md-12">
+	<div class="well well bs-component">
+	  <form novalidate class="form-horizontal" (ngSubmit)="addSkill(addSkillForm.value)" #addSkillForm="ngForm">
+	  	<h3>Adding a new skill to Track: {{track.track}} </h3>
+	    <fieldset>
+	      <input type="hidden" name="track_id" [(ngModel)]="track.id" #track_id="ngModel">
+	      <div class="form-group">
+	        <div class="col-lg-12">
+	          <input type="text" class="form-control" id="skillname" name="skill" placeholder="Type or Select Skill Title" [(ngModel)]="skill.skill" #skill="ngModel" required list="skills">
+	          	<datalist id="skills" align="left">
+	 			    <option *ngFor="let skill of my_skills">{{skill.skill}}</option>
+	 			    <option *ngIf ="(my_skills)?.length>0">-----------------</option>
+	 			    <option *ngFor="let skill of public_skills">{{skill.skill}}</option>
+	          	</datalist>
+	          <div *ngIf="skill.errors?.required && skill.touched" class="alert alert-danger">
+	            Skill Title is required
+	          </div>
+	        </div>
+	      </div>
+          <div class="form-group">
+            <div class="col-lg-10">
+              <textarea class="form-control" rows="3" id="description" name="description" placeholder="Description of the course" ngModel #description="ngModel" required></textarea>
+              <div *ngIf="description.errors?.required && description.touched" class="alert alert-danger">
+                Description is required
+              </div>
+            </div>
+          </div>
+	      <div class='row'>
+	        <div class="form-group col-md-6">
+	          <div class="col-lg-12">
+				<select class="form-control" id="status_id" required ngModel #status_id="ngModel" name="status_id" placeholder="Skill's status">
+				    <option value="" disabled selected>Select Status</option>
+	 			    <option *ngFor="let status of statuses" [value]="status.id">
+				        {{status.status}} - {{status.description}} </option>
+				</select>
+	          </div>
+	        </div>
+	     </div>
+	      <div class="form-group">
+	        <div class="col-lg-4 col-lg-offset-4">
+	          <button type="submit" class="btn btn-primary" [disabled]="addSkillForm.invalid">Add Skill</button>
+	        </div>
+	      </div>
+	    </fieldset>
+	  </form>
+	</div>
+</div>

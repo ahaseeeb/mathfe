@@ -1,0 +1,175 @@
+<section *ngIf="selectedTeach" id="teach-detail">
+  <div class="alert alert-default alert-dismissible">
+    <!-- <a class="close" data-dismiss="alert" aria-label="close" (click)="unSelect(selectedTeach)"><button><img src="images/exit.png" height="42" width="42" /></button></a> -->
+    <div class="house-detail">
+      <div class="">
+
+        <!-- SECTION HEADER -->
+        <div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+          <!-- SECTION TITLE -->
+          <h1 class="dark-text">{{selectedTeach.house}} <span>Instructor's Page</span></h1>
+          <div class="colored-line">
+          </div>
+
+          <div class="section-description">
+            <p>{{selectedTeach.description}}</p>
+          </div>
+
+          <div class="colored-line">
+          </div>
+        </div>
+        <!-- /END SECTION HEADER -->
+        <h3 class="main-color">
+          Student Management
+        </h3>
+        <div class="row" *ngIf="selectedTeach.enrolled_students?.length>0; else nostudent">
+          <div class="col-md-6 col-sm-12 single-service wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+            <div class="single-package">
+              <h4 class="package-heading main-color">Class Maxile Score</h4>
+              <div class="price">
+                <div class="color-bg">
+                  <h4>{{parseDecimal(selectedTeach.average_progress)}}<span class="month"><br />Average Maxile Score</span></h4>
+                </div>
+                <div>
+                  <h4>{{selectedTeach.lowest_progress}}<span class="month"><br />Lowest Maxile Score</span></h4>
+                </div>
+                <div class="color-bg">
+                  <h4>{{selectedTeach.highest_progress}}<span class="month"><br />Highest Maxile Score</span></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /END SINGLE PACKACGE -->
+          <!-- SINGLE PACKACGE -->
+          <!-- <div class="col-md-6 col-sm-12 single-service wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+            <div class="single-package">
+
+              <h4 class="package-heading main-color">
+                Track Maxile
+              </h4>
+              <ag-barchart [tracksdata]="selectedTeach.tracksdata" [barChartData]="selectedTeach.barchartdata"></ag-barchart>
+            </div>
+          </div> -->
+          <!-- /END SINGLE PACKACGE -->
+          <!-- SINGLE PACKACGE -->
+          <div class="col-md-6 col-sm-12 single-service wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+
+            <div class="single-package">
+              <h4 class="package-heading main-color">
+                Student Performance
+              </h4>
+              <ag-chart [chartdata]="selectedTeach.chartdata"></ag-chart>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <form novalidate class="form-horizontal" (ngSubmit)="updateTrack(track)" #editTrackForm="ngForm">
+              <fieldset>
+                <div class="form-group">
+                  <div class="col-md-6 col-sm-12">
+                    <div *ngIf="state=='success'" class="alert alert-success" role="alert"> {{ message }} </div>
+                    <div *ngIf="state=='error'" class="alert alert-danger" role="alert"> {{ message }} </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-2 col-sm-12">
+                    <label for="status_id">Underperform %</label>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <input max="100" min="0" onkeyup="imposeMinMax(this)" type="number" class="form-control" id="underperform"
+                      name="underperform" [(ngModel)]="selectedTeach.underperform" #track_name="ngModel" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-2 col-sm-12">
+                    <label for="status_id">Overperform %</label>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <input max="100" min="0" onkeyup="imposeMinMax(this)" type="number" class="form-control" id="overperform"
+                      name="overperform" [(ngModel)]="selectedTeach.overperform" #track_name="ngModel" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-1 col-md-offset-2  col-sm-12">
+                    <button type="button" (click)="updateHouse()" class="btn btn-primary">Update</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+
+        </div>
+        <ng-template #nostudent>
+          <div class="colored-line"></div>
+          <p>There is no student enrolled in this course.</p>
+          <div class="colored-line">
+          </div>
+        </ng-template>
+      </div>
+      <!-- /END CONTAINER -->
+      <div class="row" *ngIf="selectedTeach.enrolled_students?.length>0">
+        <div class="col-xs-12 table-responsive">
+
+          <table class="table table-striped table-condensed" [mfData]="selectedTeach.enrolled_students" #mf="mfDataTable"
+            [mfRowsOnPage]="50">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>
+                  <mfDefaultSorter by="firstname">Name</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="maxile_level">Total Maxile Level</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="game_level">Game Level</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="pivot.progress">Class Maxile</mfDefaultSorter>
+                </th>
+                <!-- <th>Field Level</th> -->
+                <th>Tracks Passed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="m-table__row--active {{getRowClass(student)}}" *ngFor="let student of mf.data">
+                <td scope="row">
+                  <img src="{{student.image}}" width="75" />
+                </td>
+                <td>
+                  {{student.firstname}} {{student.lastname}}
+                </td>
+                <td>{{student.maxile_level}}</td>
+                <td>{{student.game_level}}</td>
+                <td>{{student.pivot.progress}}</td>
+                <!-- <td>
+                  <ul>
+                    <li *ngFor="let level of student.field_maxile">{{level}}</li>
+                  </ul>
+                </td> -->
+                <td>
+                  <!-- <ul>
+                    <li *ngFor="let track of student.tracks_passed">{{track.track}}</li>
+                  </ul> -->
+                  <a data-toggle="modal" title="View Tracks" data-target="#trackPassed" class="btn btn-info" (click)="showTrackPassedModal(student,true)">
+                    <i class="icon_target"></i></a>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="7">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[50,100,500]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ag-track-passed [trackResult]="selectedTrackResult" *ngIf="show_track_passed_modal"></ag-track-passed>
